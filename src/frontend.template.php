@@ -75,7 +75,12 @@ $purifier = new HTMLPurifier($purifier_config);
             document.execCommand('copy', false);
             inp.remove();
         }
-
+        
+        function reloadWithAddress(address) {
+            if(address != "dummy"){
+                window.location = '//' + location.host + location.pathname + '?' + address;
+            }
+        };
 
     </script>
 </head>
@@ -93,12 +98,24 @@ $purifier = new HTMLPurifier($purifier_config);
         <form id="header-form" data-turbolinks-permanent action="?action=redirect" method="post">
             <div class="form-group row">
 
+                <?php
+                    if ($config['userlist']['expose_users']) {
+                ?>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <?php
+                    }else{
+                ?>
                 <div class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
+                <?php
+                    }    
+                ?>
+                    
                     <input id="username" class="form-control form-control-lg" name="username" title="username"
                            value="<?php echo $user->username ?>">
                 </div>
-                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <?php
+                
+                <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
+                <?php
                     if (count($config['domains']) == 1) {
                         $domain = $config['domains'][0];
                         print "<h3>@$domain</h3>";
@@ -118,11 +135,40 @@ $purifier = new HTMLPurifier($purifier_config);
                     }
                     ?>
                 </div>
+                
+                <?php
+                    if ($config['userlist']['expose_users']) {
+                ?>
+                <div class="col-lg-2 col-md-3 col-sm-12 col-xs-12 random-column">
+                <?php
+                    }else{
+                ?>
                 <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 random-column">
+                <?php
+                    }    
+                ?>
                     <a role="button" href="?action=random"
                        class="btn btn-outline-primary col-sm-12 col-xs-12 random-button">Generate
                         Random</a>
                 </div>
+                
+                <?php
+                    if ($config['userlist']['expose_users']) {
+                ?>
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 random-column">
+                     <select id="otherusers_selection" class="form-control form-control-lg" name="otheruser" onchange="reloadWithAddress(this.value);">
+                        <option value="dummy">Other Users With Mail</option>
+                        <?php
+                        foreach ($config['userlist']['list'] as $other) {
+                            $selected = $other === $user->address ? ' selected ' : '';
+                            print "<option value='$other' $selected>$other</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+                <?php
+                    }    
+                ?>
             </div>
         </form>
     </div>
