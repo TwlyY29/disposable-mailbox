@@ -95,4 +95,29 @@ class ImapClient {
         }
         $this->mailbox->expungeDeletedMails();
     }
+    
+    
+    /**
+     * returns all users from a mailbox.
+     * 
+     * assumes a single mbox file that catches all mails
+     * @return array
+     */
+    public function get_users_unique():array {
+        // Search for mails with the recipient $address in TO or CC.
+        $mailsIdsTo = imap_sort($this->mailbox->getImapStream(), SORTARRIVAL, true, SE_UID);
+        $mailsIdsCc = imap_sort($this->mailbox->getImapStream(), SORTARRIVAL, true, SE_UID);
+        $mail_ids = array_merge($mailsIdsTo, $mailsIdsCc);
+        
+        $users = array();
+        foreach ($this->mailbox->getMailsInfo($mail_ids) as $mail) {
+            if(isset($mail->to)){
+                $users[] = $mail->to;
+            }
+            if(isset($mail->cc)){
+                $users[] = $mail->cc;
+            }
+        }
+        return array_unique($users);
+    }
 }

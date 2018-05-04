@@ -34,3 +34,5 @@ $config['blocked_usernames'] = array('root', 'admin', 'administrator', 'hostmast
 // Mails are usually show as Text and only if not available as HTML. You can turn this around to prefer HTML over text.
 $config['prefer_plaintext'] = true;
 
+// expose all users in mailbox
+$config['userlist']['expose_users'] = true;
