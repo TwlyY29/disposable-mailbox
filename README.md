@@ -6,6 +6,8 @@ For catch-all mailboxes, there is now an option to select specific mail-addresse
 
 ![Screenshot](screenshot.png)
 
+Original Documentation:
+
 ## Features
 
 * Anonymous usage, generate random email addresses. 
