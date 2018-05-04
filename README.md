@@ -1,12 +1,10 @@
 # disposable-mailbox
-[![Join the chat at https://gitter.im/synox/disposable-mailbox](https://badges.gitter.im/synox/disposable-mailbox.svg)](https://gitter.im/synox/disposable-mailbox?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 A **self-hosted** disposable mailbox  service (aka trash mail)  :cloud: :envelope: 
 
-**Demo**: [BhadooMail](https://bhadoomail.com/) 
+For catch-all mailboxes, there is now an option to select specific mail-addresses to filter the mailbox with.
 
 ![Screenshot](screenshot.png)
-
 
 ## Features
 
